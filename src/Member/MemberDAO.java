@@ -109,6 +109,46 @@ public class MemberDAO {
 		}
 		
 		return vec;
+	}
+	
+	//한 사람에 대한 정보를 리턴하는 메소드 작성
+	public MemberBean oneSelectorMember(String id) {
 		
+		//한 사람에 대한 정보만 리턴하기 때문에 MemberBean 클래스 객체 생성
+		MemberBean bean = new MemberBean();
+		
+		try {
+			//커넥션 연결
+			getCon();
+			
+			//쿼리 작성
+			String sql = "select * from member where id=?";
+			
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setString(1, id); //위에 매개변수에 아이디를 넣는다.
+			
+			//쿼리 실행
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) { //레코드가 있다면
+				bean.setId(rs.getString(1));
+				bean.setPass1(rs.getString(2));
+				bean.setEmail(rs.getString(3));
+				bean.setTel(rs.getString(4));
+				bean.setHobby(rs.getString(5));
+				bean.setJob(rs.getString(6));
+				bean.setAge(rs.getString(7));
+				bean.setInfo(rs.getString(8));
+			}
+			
+			//자원 반납
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return bean;
 	}
 }
