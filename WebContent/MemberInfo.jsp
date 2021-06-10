@@ -47,6 +47,14 @@
 				<td align="center" width="150">비고</td>
 				<td width="250"><%=mbean.getInfo()%></td>
 			</tr>
+			<tr height="50">
+				<td align="center" colspan="2">
+					<button onclick="location.href='MemberUpdateForm.jsp?id=<%=mbean.getId()%>'">수정</button>
+					<button onclick="location.href='MemberDeleteForm.jsp?id=<%=mbean.getId()%>'">삭제</button>
+					<button onclick="location.href='MemberList.jsp'">목록</button>
+					<button onclick="location.href='MemberJoin.jsp'">회원가입</button>
+				</td>
+			</tr>
 		</table>
 	</center>
 </body>

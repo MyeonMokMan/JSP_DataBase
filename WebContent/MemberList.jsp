@@ -10,6 +10,7 @@
 <title>회원정보 리스트</title>
 </head>
 <body>
+
 	<!-- 1.데이터베이스에서 모든 회원 정보를 가져옴. 2.table 태그를 이용하여 회원 정보를 출력-->
 	
 	<%
@@ -36,7 +37,7 @@
 			<tr height="50">
 				<td align="center" width="150">
 				<a href="MemberInfo.jsp?id=<%=bean.getId()%>">
-				<%=bean.getId() %></td>
+				<%=bean.getId()%></td>
 				<td align="center" width="250"><%=bean.getEmail() %></td>
 				<td align="center" width="200"><%=bean.getTel() %></td>
 				<td align="center" width="200"><%=bean.getHobby() %></td>
