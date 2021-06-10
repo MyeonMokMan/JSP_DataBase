@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 //오라클 데이터베이스에 연결하고 select,delete,insert,update 작업을 실행하는 클래스.
 public class MemberDAO {
@@ -151,4 +152,84 @@ public class MemberDAO {
 		
 		return bean;
 	}
+	
+	//한 회원의 패스워드 값을 리턴하는 메소드
+	public String getPass(String id) {
+		
+		String pass="";
+		
+		try {
+			
+			getCon();
+			
+			String sql = "select pass1 from member where id=?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			//쿼리 실행
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				pass = rs.getString(1); //패스워드 값이 저장된 컬럼 인덱스 저장.
+			}
+			
+			con.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pass;
+	}
+	
+	//한 회원의 정보를 수정하는 메소드
+	public void updateMember(MemberBean bean) {
+		
+		getCon();
+		
+		try {
+			
+			String sql = "update member set email=?,tel=? where id=?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, bean.getEmail());
+			pstmt.setString(2, bean.getTel());
+			pstmt.setString(3, bean.getId());
+			
+			pstmt.executeUpdate();
+			
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteMember(String id) {
+		
+		getCon();
+		
+		try {
+			
+			String sql = "delete from member where id=?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+			
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 }
